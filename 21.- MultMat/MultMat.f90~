@@ -1,0 +1,57 @@
+!Autor: Claudio Iván Esparza Castañeda
+!Título: Multiplicación de matrices
+!Descripción: Programa que multiplica dos matrices
+!Fecha: 13/12/2018
+
+Program mulmat
+  implicit none
+  REAL, allocatable, dimension(:, :)::A, B, C
+  REAL::s, t
+  INTEGER::i, j, k, N, M
+  open (unit=1, file="A.dat", status="old")
+  open (unit=2, file="B.dat", status="old")
+  N=0
+  M=0
+  do i=1, 10000
+     read(1, *, end=3) s
+     read(2, *, end=4) t
+     N=N+1
+     M=M+1
+  end do
+3 close(1)
+4 close(2)
+  write(*, *) "La matriz A tiene", N, "filas y ", N, "columnas."
+  write(*, *) "La matriz B tiene", M, "filas y ", M, "columnas."
+  allocate(A(1:N, 1:N), B(1:M, 1:M), C(1:M, 1:M))
+  open (unit=5, file="A.dat", status="old")
+  WRITE(*, *) "Matriz A"
+  do i=1, N
+     read(5, *) A(i, :)
+     write(*, *) A(i, :)
+  end do
+  close(5)
+  WRITE(*, *) "Matriz B"
+  open (unit=8, file="B.dat", status="old")
+  do i=1, M
+     read(8, *) B(i, :)
+     write(*, *) B(i, :)
+  end do
+  close(8)
+  do i=1, N
+     do j=1, M
+        s=0
+        do k=1, M
+           s=s+A(i, k)*B(k, j)
+        end do
+        C(i, j)=s
+     end do
+  end do
+  WRITE(*, *) "Matriz C"
+  do i=1, M
+     WRITE(*, *) C(i, :)
+  end do
+  deallocate(A, B, C)
+end Program mulmat
+
+
+

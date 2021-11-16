@@ -1,0 +1,12 @@
+!Autor: Claudio Iván Esparza Castañeda
+!Título: Müller
+!Descripción: Programa que se encarga de calcular las raíces de un polinomio a partir del método de Müller
+!Fecha: 07/11/2018
+Program mul
+  implicit none
+  REAL::x0, x1, x2, xr, e, er, h
+  
+end Program mul
+
+
+

@@ -1,0 +1,38 @@
+!Autor: Claudio Iván Esparza Castañeda
+!Título: Birge-Vieta
+!Descripción: El método se basa en el método de Newton-Raphson implementando el esquema de Horner para la evaluación del polinomio y su derivada
+!Fecha: 22/03/2020
+  
+Program birvie
+  implicit none
+  REAL::e, er, x, y, f, fp, xe, b, c, y
+  INTEGER::n, i, j
+  REAL, allocatable, dimension(:)::A
+  WRITE(*, *) "Grado del polinomio"
+  READ(*, *) n
+  allocate(A(0:n))
+  WRITE(*, *) "Coeficientes del polinomio a0+a1x+a2x²+...anx^n"
+  do i=0, n
+     READ(*, *) A(i)
+  end do
+  WRITE(*, *) "Valor inicial" !Preguntar final del intervalo
+  READ(*, *) x !Ingresar final del intervalo
+  WRITE(*, *) "Error esperado" !Preguntar el error
+  READ(*, *) er !Ingresar el error
+  do i=1, n
+     b=A(n)
+     c=A(n)
+     do j=n-1, 1, -1
+        b=b*x+a(j)
+        c=c*x+b
+     end do
+     b=b*x+A(0)
+     r=x-b/c
+     if (abs(r-x) .gt. er*abs(r)) then
+        EXIT
+     end if
+     WRITE(*, *) r
+     x=r
+  end do
+  deallocate(A)
+end Program birvie

@@ -1,0 +1,47 @@
+!Autor: Claudio Iván Esparza Castañeda
+!Título: Müller
+!Descripción: Programa que se encarga de calcular las raíces de un polinomio a partir del método de Müller
+!Fecha: 07/11/2018
+Program mul
+  implicit none
+  REAL::x0, x1, x2, xr, e, er, h, A, B, C, s, f
+  INTEGER::i
+  WRITE(*, *) "Primera aproximación:"
+  READ(*, *) x0
+  WRITE(*, *) "Segunda aproximación:"
+  READ(*, *) x1
+  WRITE(*, *) "Tercera aproximación:"
+  READ(*, *) x2
+  WRITE(*, *) "Error esperado:"
+  READ(*, *) er
+  i=0
+  do
+     A=((f(x0)-f(x1))/(x0-x1)-(f(x1)-f(x2))/(x1-x2))/(x0-x2)
+     B=A*(x0-x1)+(f(x0)-f(x1))/(x0-x1)
+     C=f(x0)
+     if (B<0) then
+        s=-1
+     else
+        s=1
+     end if
+     x2=x1
+     x1=x0
+     x0=x0+(-2*C)/(B+s*sqrt(B**2-4*A*C))
+     e=abs((x0-x1)/x0)
+     i=i+1
+     if (e<=er) then
+        EXIT
+     end if
+  end do
+  write(*, *) "       x                 f(x)            e               i"
+  write(*, *) x0, f(x0), e, i
+end Program mul
+
+function f(x)
+  implicit none
+  REAL::f, x
+  f=x**3-13*x-12
+end function f
+
+
+

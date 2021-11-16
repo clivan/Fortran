@@ -1,0 +1,34 @@
+!Autor: Claudio Iván Esparza Castañeda
+!Título: Evaluar polinomios y su derivada
+!Descripción: Programa que se encarga de evaluar polinomios mediante la anidación de los términos, así como la evaluación de la derivada
+!Fecha: 28/10/2018
+
+program DivSint !Inicio del programa
+  implicit none !Sin variables implícitas
+  REAL, allocatable, dimension(:)::a, b !Vector tipo REAL con dimensión dinámica
+  REAL::p, d, x, r, s, t !Varibles tipo REAL
+  INTEGER::i, n, m !Variables enteras
+  d=0.0 !Inicializar valor de derivada
+  p=0.0 !Inicializar valor de polinomio
+  WRITE(*, *) "Grado del polinomio" !Preguntar por el grado del polinomio
+  READ(*, *) n
+  allocate(a(0:n), b(0:n-1)) !Asignar valor a variable dinámica
+  WRITE(*, *) "Coeficientes del polinomio a0+a1x+a2x²+...anx^n" !Pregunta coeficientes del polinomio
+  do i=0, n 
+     READ(*, *) a(i)
+  end do
+  WRITE(*, *) "t de (x-t) para dividir el  polinomio" !Preguntar valor para evaluar polinomio
+  READ(*, *) t
+  r=a(n)
+  a(n)=0
+  do i=n-1, 0, -1
+     s=a(i)
+     a(i)=r
+     r=s+r*t
+     b(i)=r
+  end do
+  do i=n-1, 0, -1
+     WRITE(*, *) b(i)
+  end do
+  deallocate(a, b)
+end program DivSint
